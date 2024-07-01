@@ -98,3 +98,4 @@ export async function updateCredits(userId: string, creditFee: number) {
 //request with payload that have all juicy data about user
 //send the data to event processing and directly to the database so that we can create a new user in the database
 //we have expose our endpoints directly to the internet so that clerk can ping the endpoint to create database
+//clerk webhooks will ping the database(backend).
