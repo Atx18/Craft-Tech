@@ -1,15 +1,14 @@
-import mongoose,{Mongoose} from 'mongoose';
-const MONGODB_URL=process.env.MONGODB_URL;
 
+import { Mongoose } from 'mongoose';
+import * as mongoose from "mongoose";
+const MONGODB_URL = process.env.MONGODB_URL;
 
 interface MongooseConnection {
-    conn: Mongoose | null;
-    promise: Promise<Mongoose> | null;
-  }
-  //we have to connect the mongodb on which api requets .Nextjs is a serverless backend .They are stateless meaning they start to handle our request but shut do shut down right after.Thsi approach ebsures us to handle each  requets  to handle  independlty 
-  //optimising by caching
+  conn: Mongoose | null;
+  promise: Promise<Mongoose> | null;
+}
 
-  let cached: MongooseConnection = (global as any).mongoose
+let cached: MongooseConnection = (global as any).mongoose
 
 if(!cached) {
   cached = (global as any).mongoose = { 
@@ -25,7 +24,7 @@ export const connectToDatabase = async () => {
   cached.promise = 
     cached.promise || 
     mongoose.connect(MONGODB_URL, { 
-      dbName: 'craft-tech', bufferCommands: false 
+      dbName: 'CRAFT-TECH', bufferCommands: false 
     })
 
   cached.conn = await cached.promise;

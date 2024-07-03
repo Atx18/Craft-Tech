@@ -1,7 +1,7 @@
-"use  server"
+
 //server actions are executed on the nextjs server and both client and server can hit thme and it seems to be a fucntion call .if we dont mention use serve  top compiler will think it will as client component but it is a server component ,client under the hood send http request 
 //aletrnative to api
-
+"use server"
 import { revalidatePath } from "next/cache";
 import User from "../database/models/user.model";
 import { connectToDatabase } from "../database/mongoose";
