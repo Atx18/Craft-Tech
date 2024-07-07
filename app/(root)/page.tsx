@@ -9,12 +9,14 @@ const Home = async ({ searchParams }: SearchParamProps) => {
   const searchQuery = (searchParams?.query as string) || '';
 
   const images = await getAllImages({ page, searchQuery})
-
+ //getting the userid form clerk(clerk id)
+ //imageid is the database image._id which we are appending to the url
+ //user._id is the database userID
   return (
     <>
       <section className="home">
         <h1 className="home-heading">
-          Unleash Your Creative Vision with Imaginify
+          Unleash Your Creative Vision with Craft-tech
         </h1>
         <ul className="flex-center w-full gap-20">
           {navLinks.slice(1, 5).map((link) => (
@@ -43,5 +45,10 @@ const Home = async ({ searchParams }: SearchParamProps) => {
     </>
   )
 }
+//"./" homepage-recent edits
+//"./tranformations/add" =action ==add on clicking generative fill,recolor ,remove etc on the sidebar
+//'./tranformations/id/'=iamgeid(database id),clicking on any pictures on recent edits redirects here,have delete image options
+//'./tranformation/id/update'=clicking on update button on './tranformations/id/' redirects to this page 
+//userId === image.author.clerkId means whether u are author of the iamge
 
 export default Home

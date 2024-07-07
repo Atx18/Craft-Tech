@@ -110,9 +110,9 @@ export async function deleteImage(imageId: string) {
 export async function getImageById(imageId: string) {
   try {
     await connectToDatabase();
-
+      //imageid is the database image id
     const image = await populateUser(Image.findById(imageId));
-
+    // therefor the iamge has access to _id,firstname,lastnam,clerkid of the user
     if(!image) throw new Error("Image not found");
 
     return JSON.parse(JSON.stringify(image));
@@ -191,6 +191,37 @@ export async function getAllImages({limit=9,page=1,searchQuery=''}:{
     //When revalidatePath is called, it signals the application to fetch fresh data for the specified path. This process can involve calling APIs, querying databases, or performing any necessary operations to ensure that the latest data is fetched.
     //Update Content: Once the new data is fetched, the content of the page or component associated with the path is updated to reflect the latest information. This can involve re-rendering components, updating state, or performing other actions to ensure the UI is in sync with the latest data.
     //The path parameter specifies the route or URL that you want to revalidate. This could be a specific page or a set of pages that rely on certain data.
+}
+
+
+export async function getUserImages({
+  limit = 9,
+  page = 1,
+  userId,
+}: {
+  limit?: number;
+  page: number;
+  userId: string;
+}) {
+  try {
+    await connectToDatabase();
+
+    const skipAmount = (Number(page) - 1) * limit;
+
+    const images = await populateUser(Image.find({ author: userId }))
+      .sort({ updatedAt: -1 })
+      .skip(skipAmount)
+      .limit(limit);
+
+    const totalImages = await Image.find({ author: userId }).countDocuments();
+
+    return {
+      data: JSON.parse(JSON.stringify(images)),
+      totalPages: Math.ceil(totalImages / limit),
+    };
+  } catch (error) {
+    handleError(error);
+  }
 }
 
 

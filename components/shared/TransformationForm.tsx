@@ -43,7 +43,7 @@ export const formSchema = z.object({
     color: z.string().optional(),
     prompt: z.string().optional(),
     publicId: z.string(),
-})
+}) 
 
 
 
@@ -195,19 +195,18 @@ const  onInputChangeHandler =(fieldName:string, value:string,type:string,onChang
 
 //return to update  
 //on clicking the final button
-const onTransformHandler= async ()=>{
-    setIsTransforming(true)
+const onTransformHandler = async () => {
+  setIsTransforming(true)
 
-    setTransformationConfig(
-      deepMergeObjects(newTransformation, transformationConfig)
-    )
+  setTransformationConfig(
+    deepMergeObjects(newTransformation, transformationConfig)
+  )
 
-    setNewTransformation(null)
+  setNewTransformation(null)
 
-    startTransition(async () => {
-      await updateCredits(userId, creditFee)
-    })
-
+  startTransition(async () => {
+    await updateCredits(userId, creditFee)
+  })
 }
 
 
@@ -220,7 +219,7 @@ useEffect(() => {
   }
 }, [image, transformationType.config, type])
 
-
+//value={field.value} is used to kno wwhether the value of aspect ratio have changed and onselectFiledhandler is used for knowing when the aspect artio has changed line no 240-28 fill option 
 //Media Uplaoder is form uploading the image and set the iamge state to the current state
 //deepmerge from./li/utils helps u merge keys of 2 images that generally reproduce the new image
   return (
@@ -248,7 +247,9 @@ useEffect(() => {
       onValueChange={(value)=>{
         onSelectFieldHandler(value,field.onChange)
         
-      }}>
+      }}
+      value={field.value}
+      >
         <SelectTrigger className="select-field">
           <SelectValue placeholder="Select size" />
         </SelectTrigger>
